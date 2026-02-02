@@ -83,11 +83,11 @@ tc5_schudle = [
 DBF = connect('DataBase.db')
 Cursor = DBF.cursor()
 # # Create tables for students in each class
-Cursor.execute("CREATE TABLE IF NOT EXISTS tc1_students (studentID TEXT, studentName TEXT, entringPermession BOOLEAN DEFAULT 1)")
-Cursor.execute("CREATE TABLE IF NOT EXISTS tc2_students (studentID TEXT, studentName TEXT, entringPermession BOOLEAN DEFAULT 1)")
-Cursor.execute("CREATE TABLE IF NOT EXISTS tc3_students (studentID TEXT, studentName TEXT, entringPermession BOOLEAN DEFAULT 1)")
-Cursor.execute("CREATE TABLE IF NOT EXISTS tc4_students (studentID TEXT, studentName TEXT, entringPermession BOOLEAN DEFAULT 1)")
-Cursor.execute("CREATE TABLE IF NOT EXISTS tc5_students (studentID TEXT, studentName TEXT, entringPermession BOOLEAN DEFAULT 1)")
+Cursor.execute("CREATE TABLE IF NOT EXISTS tc1_students (studentID TEXT PRIMARY KEY, studentName TEXT NOT NULL, entringPermession BOOLEAN DEFAULT 1)")
+Cursor.execute("CREATE TABLE IF NOT EXISTS tc2_students (studentID TEXT PRIMARY KEY, studentName TEXT NOT NULL, entringPermession BOOLEAN DEFAULT 1)")
+Cursor.execute("CREATE TABLE IF NOT EXISTS tc3_students (studentID TEXT PRIMARY KEY, studentName TEXT NOT NULL, entringPermession BOOLEAN DEFAULT 1)")
+Cursor.execute("CREATE TABLE IF NOT EXISTS tc4_students (studentID TEXT PRIMARY KEY, studentName TEXT NOT NULL, entringPermession BOOLEAN DEFAULT 1)")
+Cursor.execute("CREATE TABLE IF NOT EXISTS tc5_students (studentID TEXT PRIMARY KEY, studentName TEXT NOT NULL, entringPermession BOOLEAN DEFAULT 1)")
 # # Insert student data into respective tables
 Cursor.executemany("INSERT INTO tc1_students VALUES (?, ?, ?)", tc1)
 Cursor.executemany("INSERT INTO tc2_students VALUES (?, ?, ?)", tc2)

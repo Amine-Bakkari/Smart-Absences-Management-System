@@ -15,8 +15,8 @@ MainWindow.iconbitmap("absent.ico")
 Image = CTkImage(light_image=Icon, size=(45, 45))
 
 date = str(datetime.datetime.now().date())
-time = str(datetime.datetime.now().time().strftime("%H") + ":30")
-# time = "8:30"
+# time = str(datetime.datetime.now().time().strftime("%H") + ":30")
+time = "8:30"
 NotAllowedStudents = list()
 
 DateLabel = CTkLabel(MainWindow, text=date, font=("Arial", 14), fg_color="#fffed7")
@@ -84,6 +84,7 @@ def SubmitHandler():
                 SuccessLabel.place(y=194, relx=0.5, anchor="center")
                 StudentNameOrIDEntry.delete("0", "end")
                 StudentNameOrIDEntry.configure(placeholder_text="Student Name or ID")
+                TeacherNameOrIDEntry.focus_set()
             else:
                 SuccessLabel.configure(text="Absence Already Recorded!", text_color="#ff0000")
                 SuccessLabel.place(y=194, relx=0.5, anchor="center")
@@ -139,6 +140,7 @@ def RemoveHandler():
                 SuccessLabel.place(y=194, relx=0.5, anchor="center")
                 StudentNameOrIDEntry.delete("0", "end")
                 StudentNameOrIDEntry.configure(placeholder_text="Student Name or ID")
+                TeacherNameOrIDEntry.focus_set()
             else:
                 SuccessLabel.configure(text="Absence Not Found!", text_color="#ff0000")
                 SuccessLabel.place(y=194, relx=0.5, anchor="center")
@@ -191,6 +193,7 @@ def JustifyHandler():
             SuccessLabel.place(y=194, relx=0.5, anchor="center")
             StudentNameOrIDEntry.delete("0", "end")
             StudentNameOrIDEntry.configure(placeholder_text="Student Name or ID")
+            TeacherNameOrIDEntry.focus_set()
         else:
             SuccessLabel.configure(text="Student Not Found!", text_color="#ff0000")
             SuccessLabel.place(y=194, relx=0.5, anchor="center")
@@ -210,14 +213,19 @@ SuccessLabel = CTkLabel(EntryFrame, text="", font=("Arial", 14), fg_color="trans
 SuccessLabel.place(y=194, relx=0.5, anchor="center")
 
 def SearchingNotAllowedStudents():
+    global NotAllowedStudents
     Class = ClassEntry.get().lower()
     if Class:
         DBF = connect("DataBase.db")
         Cursor = DBF.cursor()
 
-        NotAllowedStudents = Cursor.execute(f"SELECT StudentName FROM {Class}_students WHERE entringPermession = 0").fetchall()
+        Students = Cursor.execute(f"SELECT StudentName FROM {Class}_students WHERE entringPermession = 0").fetchall()
+        for Student in Students:
+            if Student[0] not in NotAllowedStudents:
+                NotAllowedStudents.append(Student[0])
+
         for Student in NotAllowedStudents:
-            CTkLabel(LastAbsencesFrame, text=Student[0], font=("Arial", 14)).pack(anchor="w", pady=0, padx=10)
+            CTkLabel(LastAbsencesFrame, text=Student, font=("Arial", 14)).pack(anchor="w", pady=0, padx=10)
 
         DBF.commit()
         DBF.close()
