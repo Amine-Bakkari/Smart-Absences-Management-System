@@ -214,7 +214,7 @@ def SearchingNotAllowedStudents():
     if Class:
         DBF = connect("DataBase.db")
         Cursor = DBF.cursor()
-
+        
         NotAllowedStudents = Cursor.execute(f"SELECT StudentName FROM {Class}_students WHERE entringPermession = 0").fetchall()
         for Student in NotAllowedStudents:
             CTkLabel(LastAbsencesFrame, text=Student[0], font=("Arial", 14)).pack(anchor="w", pady=0, padx=10)
