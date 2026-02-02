@@ -34,6 +34,4 @@ FrameNUM3=CTkFrame(app,
           corner_radius=10)       
 FrameNUM3.place(x=10, y=330)
 
-
-
 app.mainloop()
