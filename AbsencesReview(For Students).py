@@ -32,7 +32,7 @@ Entery1=CTkEntry(app,
                   corner_radius=10,
                   fg_color="white",
                   )
-Entery1.place(x=100,y=100)    
+Entery1.place(x=115,y=100)    
 
 Entery2=CTkEntry(app,
                   width=300,
@@ -41,7 +41,7 @@ Entery2=CTkEntry(app,
                   corner_radius=10,
                   fg_color="white",
                   )
-Entery2.place(x=175,y=145)
+Entery2.place(x=115,y=145)
 
 
 
