@@ -40,7 +40,7 @@ Entery2=CTkEntry(app,
                   placeholder_text="Enter Student paassword", 
                   corner_radius=10,
                   fg_color="white"
-                  border_width=,
+                  border_width=2
                   )
 Entery2.place(x=115,y=145)
 
