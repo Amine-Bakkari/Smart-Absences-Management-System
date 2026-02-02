@@ -17,6 +17,7 @@ Image = CTkImage(light_image=Icon, size=(45, 45))
 date = str(datetime.datetime.now().date())
 time = str(datetime.datetime.now().time().strftime("%H") + ":30")
 # time = "8:30"
+NotAllowedStudents = list()
 
 DateLabel = CTkLabel(MainWindow, text=date, font=("Arial", 14), fg_color="#fffed7")
 DateLabel.place(y=0, x=420)
@@ -209,15 +210,19 @@ SuccessLabel = CTkLabel(EntryFrame, text="", font=("Arial", 14), fg_color="trans
 SuccessLabel.place(y=194, relx=0.5, anchor="center")
 
 def SearchingNotAllowedStudents():
-    DBF = connect("DataBase.db")
-    Cursor = DBF.cursor()
+    Class = ClassEntry.get().lower()
+    if Class:
+        DBF = connect("DataBase.db")
+        Cursor = DBF.cursor()
 
-    NotAllowedStudents = Cursor.execute("SELECT StudentName FROM tc1_students WHERE entringPermession = 0").fetchall()
-    for Student in NotAllowedStudents:
-        CTkLabel(LastAbsencesFrame, text=Student[0], font=("Arial", 14)).pack(anchor="w", pady=0, padx=10)
+        NotAllowedStudents = Cursor.execute(f"SELECT StudentName FROM {Class}_students WHERE entringPermession = 0").fetchall()
+        for Student in NotAllowedStudents:
+            CTkLabel(LastAbsencesFrame, text=Student[0], font=("Arial", 14)).pack(anchor="w", pady=0, padx=10)
 
-    DBF.commit()
-    DBF.close()
+        DBF.commit()
+        DBF.close()
+    else:
+        return
     
 LastAbsencesFrame = CTkScrollableFrame(MainWindow, width=455, height=200, fg_color="#e6e2b3", corner_radius=10, orientation="vertical")
 LastAbsencesFrame.place(y=270, x=10, relheight=0.3)
